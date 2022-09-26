@@ -2,7 +2,10 @@
 
 This is a cross platform shoppinglist desktop application built on electron
 
+video: https://www.youtube.com/watch?v=kN1Czs0m1SU
+
 ### Version
+
 1.0.0
 
 ## Usage
@@ -16,6 +19,7 @@ $ npm install
 ```
 
 ### Serve
+
 To run electron
 
 ```sh
