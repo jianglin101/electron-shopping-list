@@ -93,9 +93,9 @@ const mainMenuTemplate = [
 ];
 
 // If OSX, add empty object to menu
-if (process.platform == "darwin") {
-  mainMenuTemplate.unshift({});
-}
+// if (process.platform == "darwin") {
+//   mainMenuTemplate.unshift({});
+// }
 
 // Add developer tools option if in dev
 if (process.env.NODE_ENV !== "production") {
