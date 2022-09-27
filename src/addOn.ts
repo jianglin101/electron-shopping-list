@@ -1,5 +1,10 @@
+import packageJson from "../package.json";
 const electron = require("electron");
 const { ipcRenderer } = electron;
+
+const version = packageJson.version;
+
+console.log("hello from addOn", version);
 
 document.querySelector("form").addEventListener("submit", submitForm);
 

@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "importHelpers": true,
+    "pretty": true,
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "target": "es2015",
+    "noEmit": true,
+    "lib": [
+      "es2016",
+      "es2017",
+      "es2018",
+      "dom.iterable",
+      "esnext",
+      "dom",
+      "webworker"
+    ],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "noStrictGenericChecks": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "baseUrl": "."
+  },
+  "include": ["./"],
+  "exclude": ["node_modules"]
+}
