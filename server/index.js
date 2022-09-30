@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/v", (req, res) => {
-  res.json({ v: "1.0.0" });
+  res.json({ v: "1.0.3" });
 });
 
 app.get("/version", (req, res) => {

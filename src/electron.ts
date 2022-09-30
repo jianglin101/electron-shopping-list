@@ -1,7 +1,9 @@
 import electron from "electron";
-import path from "path";
 import url from "url";
+import axios from "axios";
 import { getPagePath, version } from "./utils";
+import { SERVER } from "../server/constants";
+import electronStore from "./electronStore";
 
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 
@@ -10,38 +12,52 @@ let addWindow;
 
 // Listen for app to be ready
 app.on("ready", function () {
-  // Create new window
-  mainWindow = new BrowserWindow({
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
+  const storedVersion = electronStore.get("v");
+  console.log("stored version", storedVersion);
+
+  axios.get(`${SERVER}/v`).then((res) => {
+    const v = res.data.v || version;
+    console.log("fetched version", v);
+
+    if (v !== storedVersion) {
+      electronStore.set("v", v);
+      console.log("new stored version", electronStore.get("v"));
+    }
+    // Create new window
+    mainWindow = new BrowserWindow({
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+      },
+    });
+
+    // Load html in window
+    mainWindow.loadURL(
+      url.format({
+        // pathname: path.join(__dirname, "dist", version, "mainWindow.html"),
+        // pathname: getPagePath("mainWindow.html"),
+        pathname: getPagePath("mainWindow.html", v),
+        protocol: "http:",
+        slashes: true,
+      })
+    );
+    mainWindow.webContents.openDevTools();
+
+    // Quit app when closed
+    mainWindow.on("closed", function () {
+      app.quit();
+    });
+
+    // Build menu from template
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+    // Insert menu
+    Menu.setApplicationMenu(mainMenu);
   });
-
-  // Load html in window
-  mainWindow.loadURL(
-    url.format({
-      // pathname: path.join(__dirname, "dist", version, "mainWindow.html"),
-      pathname: getPagePath("mainWindow.html"),
-      protocol: "http:",
-      slashes: true,
-    })
-  );
-  mainWindow.webContents.openDevTools();
-
-  // Quit app when closed
-  mainWindow.on("closed", function () {
-    app.quit();
-  });
-
-  // Build menu from template
-  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-  // Insert menu
-  Menu.setApplicationMenu(mainMenu);
 });
 
 // Handle add item window
 function createAddWindow() {
+  const v: string = (electronStore.get("v") as string) || version;
   addWindow = new BrowserWindow({
     width: 300,
     height: 200,
@@ -55,7 +71,7 @@ function createAddWindow() {
   addWindow.loadURL(
     url.format({
       // pathname: path.join(__dirname, "dist", version, "addWindow.html"),
-      pathname: getPagePath("addWindow.html"),
+      pathname: getPagePath("addWindow.html", v),
       protocol: "http:",
       slashes: true,
     })

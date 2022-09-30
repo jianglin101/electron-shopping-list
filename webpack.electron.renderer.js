@@ -8,14 +8,6 @@ const version = PACKAGE.version;
 const plugins = [...baseConfig.plugins];
 plugins.push(
   new HtmlWebpackPlugin({
-    filename: "./version.html",
-    template: __dirname + "/src/version.html",
-    inject: "body",
-    chunks: ["version"],
-  })
-);
-plugins.push(
-  new HtmlWebpackPlugin({
     filename: "./mainWindow.html",
     template: __dirname + "/src/mainWindow.html",
     inject: "body",
