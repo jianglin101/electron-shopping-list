@@ -1,9 +1,7 @@
 import electron from "electron";
 import path from "path";
 import url from "url";
-import packageJson from "../package.json";
-
-const version = packageJson.version;
+import { getPagePath, version } from "./utils";
 
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 
@@ -19,14 +17,17 @@ app.on("ready", function () {
       contextIsolation: false,
     },
   });
+
   // Load html in window
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, "dist", version, "mainWindow.html"),
-      protocol: "file:",
+      // pathname: path.join(__dirname, "dist", version, "mainWindow.html"),
+      pathname: getPagePath("mainWindow.html"),
+      protocol: "http:",
       slashes: true,
     })
   );
+  mainWindow.webContents.openDevTools();
 
   // Quit app when closed
   mainWindow.on("closed", function () {
@@ -53,8 +54,9 @@ function createAddWindow() {
   });
   addWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, "dist", version, "addWindow.html"),
-      protocol: "file:",
+      // pathname: path.join(__dirname, "dist", version, "addWindow.html"),
+      pathname: getPagePath("addWindow.html"),
+      protocol: "http:",
       slashes: true,
     })
   );

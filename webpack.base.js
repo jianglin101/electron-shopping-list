@@ -24,6 +24,9 @@ const baseConfig = {
       },
     ],
   },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
+  },
   node: false,
   plugins: [
     new webpack.ProvidePlugin({

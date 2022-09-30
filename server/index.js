@@ -8,6 +8,14 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/v", (req, res) => {
+  res.json({ v: "1.0.0" });
+});
+
+app.get("/version", (req, res) => {
+  res.json({ v: "2022.185.0" });
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

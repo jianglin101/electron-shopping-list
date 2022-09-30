@@ -8,6 +8,14 @@ const version = PACKAGE.version;
 const plugins = [...baseConfig.plugins];
 plugins.push(
   new HtmlWebpackPlugin({
+    filename: "./version.html",
+    template: __dirname + "/src/version.html",
+    inject: "body",
+    chunks: ["version"],
+  })
+);
+plugins.push(
+  new HtmlWebpackPlugin({
     filename: "./mainWindow.html",
     template: __dirname + "/src/mainWindow.html",
     inject: "body",
@@ -25,12 +33,13 @@ plugins.push(
 const config = {
   ...baseConfig,
   entry: {
+    version: "./src/checkVersion.ts",
     app: "./src/app.ts",
     addOn: "./src/addOn.ts",
   },
   output: {
-    path: path.join(__dirname, "dist", version),
-    publicPath: "http://localhost:1111/" + version + "/",
+    path: path.join(__dirname, "public", version),
+    // publicPath: "http://localhost:1111/" + version + "/",
     filename: "[name].js",
   },
 

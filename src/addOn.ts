@@ -4,7 +4,7 @@ const { ipcRenderer } = electron;
 
 const version = packageJson.version;
 
-console.log("hello from addOn", version);
+console.log("addOn version: ", version);
 
 document.querySelector("form").addEventListener("submit", submitForm);
 

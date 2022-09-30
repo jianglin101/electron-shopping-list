@@ -1,9 +1,7 @@
 import electron from "electron";
-import packageJson from "../package.json";
+import { version } from "./utils";
 
-const version = packageJson.version;
-
-console.log("hello from app", version);
+console.log("app version", version);
 
 const shoppingListTitle = document.getElementById("shopping-list-title");
 if (shoppingListTitle) {
